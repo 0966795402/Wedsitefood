@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+    .boxcenter {
+  position: relative;
+  width: 1260px;
+  text-align: center;
+
+  z-index: 2;
+  position: fixed;
+
+}
+
+.muabox2,
+.muabox1 {
+  float: left;
+  background-color: #e7ffdb;
+  width: 50%;
+
+}
+
+muah1 {
+  text-align: center;
+}
+
+.muainput {
+  background-color: #CCC;
+  border-radius: 10px;
+  padding: 5px 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#dssp img {
+  height: 80px;
+}
+#giohang img {
+  height: 80px;
+}
+.muatable {
+  width: 630px;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: rgb(208, 253, 124);
+}
+
+th,
+td {
+  border: 1px #999 solid;
+  padding: 5px 10px;
+  text-align: center;
+}
+.nutthanhtoan{
+  width: 100px;
+  height: 50px;
+  background-color: rgb(255, 0, 0);
+  color: #fff;
+  border-radius: 50%;
+  border: 1px solid rgb(0, 0, 0);
+}
+.nutthanhtoan:hover{
+  background-color: rgb(22, 193, 145);
+}
+</style>
+<body>
+ <form action="/buy">
+  <div class="boxcenter">
+      <div class="muakhung1">
+      <div class="muabox1">
+          <h1>SẢN PHẨM</h1>
+          <table class="muatable">
+              <tr>
+                  <th>Mã SP</th>
+                  <th>Hình</th>
+                  <th>Tên</th>
+                  <th>Đơn giá</th>
+                  <th>Số lượng</th>
+                  <th>Đặt hàng</th>
+              </tr>
+              <tbody id="dssp">
+                  <tr>
+                      <td>H01</td>
+                      <td><img src="/images/menu-1.png" alt=""></td>
+                      <td>Hamburger</td>
+                      <td>$<span>20.00</span></td>
+                      <td><input type="number" min="1" max="10" value="1"></td>
+                      <td><input type="button" value="Thêm" onclick="them(this)"></td>
+                  </tr>
+                  <tr>
+                      <td>H02</td>
+                      <td><img src="/images/menu-2.png" alt=""></td>
+                      <td>Pizza</td>
+                      <td>$<span>30.00</span></td>
+                      <td><input type="number" min="1" max="10" value="1"></td>
+                      <td><input type="button" value="Thêm" onclick="them(this)"></td>
+                  </tr>
+                  <tr>
+                      <td>H03</td>
+                      <td><img src="/images/menu-3.png" alt=""></td>
+                      <td>Sandwich</td>
+                      <td>$<span>50.00</span></td>
+                      <td><input type="number" min="1" max="10" value="1"></td>
+                      <td><input type="button" value="Thêm" onclick="them(this)"></td>
+                  </tr>
+                  <tr>
+                      <td>H04</td>
+                      <td><img src="/images/menu-4.png" alt=""></td>
+                      <td>Bread</td>
+                      <td>$<span>40.00</span></td>
+                      <td><input type="number" min="1" max="10" value="1"></td>
+                      <td><input type="button" value="Thêm" onclick="them(this)"></td>
+                  </tr>
+                  <tr>
+                    <td>H05</td>
+                    <td><img src="/images/menu-5.png" alt=""></td>
+                    <td>French fries</td>
+                    <td>$<span>40.00</span></td>
+                    <td><input type="number" min="1" max="10" value="1"></td>
+                    <td><input type="button" value="Thêm" onclick="them(this)"></td>
+                </tr>
+              </tbody>
+          </table>
+      </div>
+      </div>
+      <div class="muabox2">
+          <h1 class="muah1">GIỎ HÀNG</h1>
+          <table class="muatable">
+              <tr>
+                  <th>Mã SP</th>
+                  <th>Hình</th>
+                  <th>Tên</th>
+                  <th>Đơn giá</th>
+                  <th>Số lượng</th>
+                  <th>Thành tiền</th>
+                  <th>Xóa</th>
+              </tr>
+              <tbody id="giohang">
+                 
+              </tbody>
+              <tr>
+                  <th colspan="5">Tổng đơn hàng</th>
+                  <th colspan="2">$<span id="tongdonhang">0000</span></th>
+              </tr>
+             
+               
+          </table>
+          <button class="nutthanhtoan">Thanh toán</button>
+      </div>
+
+  </div>
+  </form>
+</body>
+<script>
+    function them(x) {
+  var tr = x.parentElement.parentElement;
+  var td = tr.children;
+  var mssp = td[0].innerHTML;
+  var hinh = td[1].children[0].src;
+  var ten = td[2].innerHTML;
+  var dongia = td[3].children[0].innerHTML;
+  var soluong = td[4].children[0].value;
+  var ttien = parseInt(dongia) * parseInt(soluong);
+
+  //Tạo các element cho giỏ hàng
+  var giohang_tr = document.createElement("tr");
+
+  //Tạo td và nội dung mssp
+  var giohang_td = document.createElement("td");
+  var giohang_td_mssp = document.createTextNode(mssp);
+  giohang_td.appendChild(giohang_td_mssp);
+  giohang_tr.appendChild(giohang_td);
+
+  var giohang_td = document.createElement("td");
+  var giohang_td_hinh = document.createElement("img");
+  giohang_td_hinh.src = hinh;
+  giohang_td.appendChild(giohang_td_hinh);
+  giohang_tr.appendChild(giohang_td);
+
+  var giohang_td = document.createElement("td");
+  var giohang_td_ten = document.createTextNode(ten);
+  giohang_td.appendChild(giohang_td_ten);
+  giohang_tr.appendChild(giohang_td);
+
+  var giohang_td = document.createElement("td");
+  var giohang_td_dongia = document.createTextNode(dongia);
+  giohang_td.appendChild(giohang_td_dongia);
+  giohang_tr.appendChild(giohang_td);
+
+  var giohang_td = document.createElement("td");
+  var giohang_td_soluong = document.createTextNode(soluong);
+  giohang_td.appendChild(giohang_td_soluong);
+  giohang_tr.appendChild(giohang_td);
+
+  var giohang_td = document.createElement("td");
+  var giohang_td_ttien = document.createTextNode(ttien);
+  giohang_td.appendChild(giohang_td_ttien);
+  giohang_tr.appendChild(giohang_td);
+
+  var giohang_td = document.createElement("td");
+  var giohang_td_nut = document.createElement("input");
+  giohang_td_nut.type = "button";
+  giohang_td_nut.value = "Xóa";
+  giohang_td_nut.setAttribute("onclick", "xoa(this)");
+  giohang_td.appendChild(giohang_td_nut);
+  giohang_tr.appendChild(giohang_td);
+
+  var giohang = document.getElementById("giohang");
+  giohang.appendChild(giohang_tr);
+
+  // tính tổng đơn hàng
+  tongdonhang();
+}
+
+function xoa(x) {
+  var tr = x.parentElement.parentElement;
+  tr.remove();
+
+  // tính tổng đơn hàng
+  tongdonhang();
+}
+
+function tongdonhang() {
+  var giohang = document.getElementById("giohang");
+  var tr = giohang.children;
+  var tong = 0;
+  for (let i = 0; i < tr.length; i++) {
+    var td = tr[i].getElementsByTagName("td");
+    var ttien = parseInt(td[5].innerHTML);
+    tong += ttien;
+  }
+  document.getElementById("tongdonhang").innerHTML = tong;
+}
+</script>
+</html>
